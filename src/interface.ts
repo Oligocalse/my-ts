@@ -1,7 +1,8 @@
 interface List {
     name: string,
-    id: number,
-    [x: string]: any,
+    readonly id: number,    // readonly 前缀表示只读
+    // [x: string]: any,
+    age?: number,  // 在属性后面添加问号表示，这个属性可有可无
 }
 
 interface Result {
@@ -14,6 +15,7 @@ function render(result: Result) {
         if (item.age) {
             console.log(item.age);
         }
+        // item.id++;  会报错，因为声明了只读属性
     })
 }
 
@@ -79,3 +81,18 @@ render(result)
 
 // 字符串索引签名的含义是：用任意的字符串去 List 中取值，能够得到任意类型的返回值
 // 这样的话即使存在着 interface 中没有的属性，ts 都会将其归为字符串索引签名中的属性
+
+// 当不确定对象中属性的个数时，可以使用 字符串索引 或者 数字索引 来兼容，
+
+interface StringArray {
+    [props: string]: string,    // 表示 => 可以用任意字符串去索引这个对象，都会返回一个字符串的值
+    [index: number]: string,    // 字符串索引 和 数字索引可以共存，但是 后一个索引的返回值类型 必须是 前一个索引返回值类型 的子类型【必须兼容】
+}                               // number 不兼容于 string， 所以可以写成 string -> 即返回string形式的数字； 
+// 或者将前一个写成any， 那么任意类型都是它的子类型
+
+
+interface Obj {
+    [name: string]: string,
+    age: string,
+    // age: number,        // 当一个接口中声明了字符串注解时，就不能再声明返回number类型的属性
+}                       // 因为字符串注解的含义就是，不管有用什么字符串去索引这个对象，都只会返回一个字符串，不会返回其他类型的值
