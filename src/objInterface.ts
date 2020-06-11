@@ -5,15 +5,38 @@ interface List {
     age?: number,  // 在属性后面添加问号表示，这个属性可有可无
 }
 
+interface Person {
+    name: string,
+    readonly age: number,
+    address?: string | boolean,
+    work?: string,
+    [prop: string]: any,   // 使用 [prop:string]: string 表示对象内任意属性的值都必须是 string 类型
+    // 如果对象内有其他类型属性值的属性，则需要使用 [prop:string]: any
+}
+
+let person: Person = {  // 第一次创建对象的时候使用 接口，后续对对象进行修改的时候，直接修改即可，不需要加接口
+    name: 'xiaowang',
+    age: 20,
+    address: false,
+    work: undefined,    // undefined 和 null 是所有类型的子类。
+}
+
+person = {
+    name: 'xiaowang',
+    age: 10,
+}
+
+// person.age = 22;
+
 interface Result {
     data: List[]
 }
 
 function render(result: Result) {
     result.data.forEach(item => {
-        console.log(item.id, item.name);
+        // console.log(item.id, item.name);
         if (item.age) {
-            console.log(item.age);
+            // console.log(item.age);
         }
         // item.id++;  会报错，因为声明了只读属性
     })

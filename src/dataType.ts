@@ -10,6 +10,8 @@ let bool: boolean = true;   // boolean 类型
 
 let arr1: number[] = [1, 2, 3];    // 数组中只允许number类型
 let arr2: Array<number | string> = [1, 2, 3, '4'];  // 使用联合类型就可以在数组中存在多种类型的值
+let arr3: Array<number | boolean> = [2, 3, true, false, 0];
+let arr4: boolean[] = [true, false];
 
 // 元组
 
@@ -24,21 +26,26 @@ let tuple: [number, string] = [1, '2'];     // 元组是一种特殊的数组，
 // 函数
 
 const add = (x: number, y: number): number => x + y;    // 为函数的参数添加类型注解之后，
+const add2 = (x: string, y: number): string => x + y;
 // ts的类型推断功能会自动推断出函数正确的返回值 （或者也可以手动为返回值添加注解
-
+// console.log(add2('1', 2))
 // 函数还有一种写法
 let compute: (x: number, y: number) => number;      // 这里的 compute 就是一种函数类型， 但是没有具体的实现
 compute = (a, b) => a + b;                          // 此处是具体的实现，编辑器会有自动提示，（函数参数的名称可以与定义时不一样，而且不需要指定类型）
-
-
+// console.log(compute);
 // 对象
 // let obj: object = { x: 1, y: '2' };       // 这种写法是不标准的，因为ts不知道在 object 中都存在着哪些属性，会导致无法赋值
 // obj.x = 2    会报错
 
 // 正确的写法应该是
-let obj: { x: number, y: string } = { x: 1, y: '2' };   // 明确 obj 中的 属性名称 和 属性的数据类型
+// let obj: { x: number, y: string } = { x: 1, y: '2' };   // 明确 obj 中的 属性名称 和 属性的数据类型
+let obj: { age: number, name: string } = {
+    name: 'jack',
+    age: 12
+}
+obj.age = 3;
 
-obj.x = 3;
+console.log(obj)
 
 // symbol 表示独一无二的值
 let s1: symbol = Symbol();
@@ -64,4 +71,13 @@ let nu: null = null;
 
 let some: undefined | string = undefined;
 some = 'string some';
+
+// any 不建议使用any
+
+// let x
+// x = 1;
+// x = '3';
+
+// never 永远不会有返回值
+// 常见于程序出错 / 死循环
 

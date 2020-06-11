@@ -4,6 +4,43 @@
 //     (x: number, y: number): number;     // 接收两个number类型的参数 x, y ，并且这个函数的返回值是number 类型
 // }
 
+interface Student {
+    readonly id: string,
+    name: string,
+    age: number,
+    address?: string,
+    mom?: Person
+}
+
+
+interface GET_STUDENT {
+    (name: string, age?: number): Student
+}
+
+let getStudent: GET_STUDENT;
+
+getStudent = (name: string, age?: number): Student => {
+    return {
+        id: '1',
+        name,
+        age: age ? age : Math.round(Math.random() * 10),
+    }
+}
+
+// const getStudent: GET_STUDENT = (name: string, age?:number): Student => {
+//     return {
+//         id: `${Math.random() * 1000}`,
+//         name,
+//         age: Math.round(Math.random() * 10),
+//     }
+// }
+
+// const st1 = getStudent('jack');
+// const st3 = getStudent('lee');
+
+// console.log(st1)
+// console.log(st3)
+
 // 或者是使用 类型别名声明一种函数类型，
 
 type Minus = (x: number, y: number) => string;

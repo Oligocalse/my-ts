@@ -16,7 +16,7 @@ interface fn3 {                                 // 通过接口来定义函数�
 
 let fnReal: fn2 = (a: number, b: number) => a + b;
 
-console.log(fnReal(1, 2))
+// console.log(fnReal(1, 2))
 // console.log(fn1(2,3))
 // fn(1)    // 会报错，因为声明函数的时候要求必须传入两个参数
 
@@ -34,7 +34,7 @@ function fn5(x: number, y = 0, z: number, q = 1) {
     return x + y + x + q;
 }
 
-console.log(fn5(1, undefined, 3)) // => 1 + 0 + 3 + 1 = 5   // 在必选参数之前的参数【或者本身就是必选参数】，如果需要使用默认值，则必须传入undefined
+// console.log(fn5(1, undefined, 3)) // => 1 + 0 + 3 + 1 = 5   // 在必选参数之前的参数【或者本身就是必选参数】，如果需要使用默认值，则必须传入undefined
 
 // 剩余参数
 // 剩余参数的写法与es6中类似，使用 ...rest 代替 => 需要注意的是，剩余参数是一个数组【可以为这个数组指定类型】
@@ -42,7 +42,7 @@ function fn6(x: number, ...rest: number[]) {
     return x + rest.reduce((pre, cur) => pre + cur);
 }
 
-console.log(fn6(1, 2, 3, 4, 5));    // 15
+// console.log(fn6(1, 2, 3, 4, 5));    // 15
 
 // 函数重载 => 为了解决什么问题？ => 需要声明多个函数去做功能类似的事情
 

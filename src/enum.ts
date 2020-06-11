@@ -1,5 +1,7 @@
 // ts的枚举类型
 
+// 为了解决 可读性差（很难记住数字的含义）/可维护性差（硬编码，牵一发而动全身） 的问题
+
 // 数字枚举
 enum Role {
     worker = 100,
@@ -9,7 +11,19 @@ enum Role {
     money
 }
 
-// console.log(Role.worker)    // 100
+// 在数字枚举中，通过【反向映射】实现双向取值 => 可以通过枚举的成员来或者对应的值，也可以通过枚举成员的值来获取枚举成员
+/**
+ * var Role = {};
+ * (function(){
+ *      Role[Role['worker'] = 1] = 'worker'  // 反向映射，
+ *                                              首先将枚举成员作为 key，将它的值作为 value，这个表达式返回的是 value   
+ *                                              第二步，将这个value作为新的 key，将对应的枚举成员作为 value
+ * })(Role || (Role = {}))
+ */
+
+console.log(Role.worker)    // 100
+console.log(Role.manager)    // 101
+// 在设置了第一个成员的初始值后，后面的成员的值会自动递增
 // console.log(Role[100])      // 'worker'
 // console.log(Role[0])        // 'undefined'
 // console.log(Role)
@@ -17,7 +31,7 @@ enum Role {
 // 枚举成员的值在定义之后无法修改！！ read-only
 // Role.worker = 1 //  报错
 
-// 字符串枚举   在字符串枚举中，不能使用反向映射取值，因为字符串枚举值的不确定性，所以反向映射取值没有意义
+// 字符串枚举   在字符串枚举中，不能使用反向映射取值，因为在字符串中，枚举的值具有不确定性，所以反向映射取值没有意义
 enum Message {
     SUCCESS = '你成功了',
     FAIL = '你失败了'
@@ -64,5 +78,29 @@ const enum Month {
 }
 
 // console.log(Month);
-const month = [Month.Jan, Month.Feb, Month.Mar];    // 会被直接替换为常量
+const month = [Month.Jan, Month.Feb, Month.Mar];    // 会被直接替换为常量[0, 1, 2]
 // console.log(month);
+
+enum RoleType {
+    Manager,
+    Worker,
+    Visitor,
+}
+
+function getRole(role: number) {
+    switch (role) {
+        case RoleType.Manager:
+            console.log('you are manager');
+            break;
+        case RoleType.Worker:
+            console.log('you are Worker');
+            break;
+        case RoleType.Visitor:
+            console.log('you are Visitor');
+            break;
+        default:
+            console.log('no permission');
+    };
+}
+
+getRole(2)
